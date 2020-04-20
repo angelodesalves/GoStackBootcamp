@@ -5,5 +5,9 @@ module.exports = {
         '@babel/preset-env',
         //  Adiciona as funcionalidades do react na converção acima
         '@babel/preset-react'
+    ],
+    plugins : [
+        //  Permite a utilização do async/await
+        '@babel/plugin-transform-runtime'
     ]
 }

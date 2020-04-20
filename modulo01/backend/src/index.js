@@ -1,8 +1,11 @@
 const express = require('express');
+const cors = require('cors');
 const { uuid, isUuid } = require('uuidv4');
 
 const app = express();
 
+//  Permiti que qualquer front end acesse a url do backend
+app.use(cors());
 //  Adiciona um tipo de função onde todas as rotas vão ter que passar por ela
 app.use(express.json());
 
