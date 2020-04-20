@@ -21,10 +21,4 @@ GET     http://localhost:3333/projects
 POST    http://localhost:3333/projects
 PUT     http://localhost:3333/projects/$id
 DELETE  http://localhost:3333/projects/$id
-
-GET     http://localhost:3333/repositories
-POST    http://localhost:3333/repositories
-POST    http://localhost:3333/repositories/$id/like
-PUT     http://localhost:3333/repositories/$id
-DELETE  http://localhost:3333/repositories/$id
 ```
