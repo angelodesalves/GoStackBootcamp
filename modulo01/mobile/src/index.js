@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { View, Text, StyleSheet, StatusBar } from 'react-native';
+import { SafeAreaView, FlatList, Text, StyleSheet, StatusBar, TouchableOpacity } from 'react-native';
 import api from './services/api';
 
 //  Não possuem valor semântico (significado)
@@ -13,8 +13,7 @@ export default function App() {
     const [projects, setProjects] = useState([]);
 
     useEffect(() => {
-        api.get('projects').then(response => {
-            console.log(response.data);
+        api.get('/projects').then(response => {
             setProjects(response.data);
         }).catch(function (error) {
             console.log(error);
@@ -22,12 +21,36 @@ export default function App() {
         });
     }, []);
 
+    async function handleAddProject() {
+        const response = await api.post('projects', {
+            title: `Novo projeto ${Date.now()}`,
+            owner: "Angelo de Salves"
+        });
+        const project = response.data;
+
+        setProjects([...projects, project]);
+    }
+
     return (
         <>
             <StatusBar barStyle="light-content" backgroundColor="#7159c1" />
-            <View style={styles.container}>
-                <Text style={styles.title}>Teste 5</Text>
-            </View>
+            <SafeAreaView style={styles.container}>
+                <FlatList
+                    data={projects}
+                    keyExtractor={project => project.id}
+                    renderItem={({ item: project }) => (
+                        <Text style={styles.project}>{project.title}</Text>
+                    )}
+                />
+
+                <TouchableOpacity
+                    activeOpacity={0.6}
+                    style={styles.button}
+                    onPress={handleAddProject}
+                >
+                    <Text style={styles.buttonText}>botão</Text>
+                </TouchableOpacity>
+            </SafeAreaView>
         </>
     );
 }
@@ -35,13 +58,22 @@ export default function App() {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#7159c1',
+        backgroundColor: '#7159c1'
+    },
+    project: {
+        color: '#fff', 
+        fontSize: 20
+    },
+    button: {
+        backgroundColor: '#fff',
+        margin: 20,
+        height: 50,
+        borderRadius: 4,
         justifyContent: 'center',
         alignItems: 'center'
     },
-    title: {
-        color: '#fff', 
-        fontSize: 32,
-        fontWeight: 'bold'
+    buttonText: {
+        fontWeight: 'bold',
+        fontSize: 16
     }
 });
