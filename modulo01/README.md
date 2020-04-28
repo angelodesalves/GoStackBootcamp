@@ -22,3 +22,10 @@ POST    http://localhost:3333/projects
 PUT     http://localhost:3333/projects/$id
 DELETE  http://localhost:3333/projects/$id
 ```
+
+## Mobile
+
+```
+cd mobile
+npx react-native run-android
+```
